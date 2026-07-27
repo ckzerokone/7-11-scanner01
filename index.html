@@ -19,17 +19,22 @@ body { background: #000; color: #fff; font-family: -apple-system, "Noto Sans TC"
 .scan-frame .corner-bl, .scan-frame .corner-br { position: absolute; width: 22px; height: 22px; border-color: #4caf50; border-style: solid; }
 .scan-frame .corner-bl { bottom: -3px; left: -3px; border-width: 0 0 3px 3px; border-radius: 0 0 0 6px; }
 .scan-frame .corner-br { bottom: -3px; right: -3px; border-width: 0 3px 3px 0; border-radius: 0 0 6px 0; }
-.scan-line { position: absolute; left: 4px; right: 4px; height: 2px; background: linear-gradient(90deg, transparent, #4caf50, transparent); animation: scanMove 1.8s ease-in-out infinite; }
+.scan-line { position: absolute; left: 4px; right: 4px; height: 2px; background: linear-gradient(90deg, transparent, #4caf50, transparent); top: 50%; animation: scanMove 1.8s ease-in-out infinite; }
 @keyframes scanMove { 0% { top: 10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 88%; opacity: 0; } }
 .scan-hint { margin-top: 14px; font-size: 14px; color: rgba(255,255,255,.7); text-shadow: 0 1px 4px rgba(0,0,0,.8); }
 .header { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; padding-top: max(12px, env(safe-area-inset-top)); background: linear-gradient(to bottom, rgba(0,0,0,.7), transparent); }
 .header h1 { font-size: 17px; font-weight: 700; }
 .header .btns { display: flex; gap: 10px; }
-.icon-btn { width: 38px; height: 38px; background: rgba(255,255,255,.18); border: none; border-radius: 50%; color: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.status-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 22px 20px; padding-bottom: max(22px, env(safe-area-inset-bottom)); transform: translateY(100%); transition: transform .3s ease; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.icon-btn { width: 38px; height: 38px; background: rgba(255,255,255,.18); border: none; border-radius: 50%; color: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; pointer-events: all; }
+.status-banner { position: fixed; left: 0; right: 0; top: 0; z-index: 25; padding: 20px 20px 24px; padding-top: max(56px, calc(env(safe-area-inset-top) + 44px)); transform: translateY(-100%); transition: transform .3s ease; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .status-banner.show { transform: translateY(0); }
-.status-banner.normal { background: #1b5e20; } .status-banner.clearance { background: #e65100; } .status-banner.expired { background: #b71c1c; } .status-banner.invalid { background: rgba(40,40,40,.95); }
-.status-icon { font-size: 40px; } .status-text { font-size: 28px; font-weight: 800; letter-spacing: 2px; } .status-sub { font-size: 15px; opacity: .85; text-align: center; }
+.status-banner.normal    { background: #1b5e20; }
+.status-banner.izhenshi  { background: #f57f17; }
+.status-banner.expired   { background: #b71c1c; }
+.status-banner.invalid   { background: rgba(40,40,40,.95); }
+.status-icon { font-size: 40px; }
+.status-text { font-size: 28px; font-weight: 800; letter-spacing: 2px; }
+.status-sub  { font-size: 15px; opacity: .85; text-align: center; }
 .barcode-raw { font-size: 12px; font-family: monospace; opacity: .5; margin-top: 4px; }
 .history-panel { position: fixed; top: 0; right: -100%; width: min(340px, 92vw); height: 100%; background: #111; z-index: 50; transition: right .3s ease; display: flex; flex-direction: column; padding-top: max(60px, env(safe-area-inset-top)); }
 .history-panel.open { right: 0; }
@@ -37,11 +42,14 @@ body { background: #000; color: #fff; font-family: -apple-system, "Noto Sans TC"
 .history-list { flex: 1; overflow-y: auto; }
 .history-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #222; }
 .history-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-.dot-normal { background: #4caf50; } .dot-clearance { background: #ff6d00; } .dot-expired { background: #f44336; } .dot-invalid { background: #666; }
-.history-content { flex: 1; } .history-barcode { font-size: 13px; font-family: monospace; color: #aaa; } .history-status { font-size: 15px; font-weight: 600; } .history-time { font-size: 12px; color: #666; margin-top: 2px; }
+.dot-normal { background: #4caf50; } .dot-clearance { background: #ff6d00; } .dot-expired { background: #f44336; } .dot-invalid { background: #666; } .dot-izhenshi { background: #f57f17; }
+.history-content { flex: 1; }
+.history-barcode { font-size: 13px; font-family: monospace; color: #aaa; }
+.history-status  { font-size: 15px; font-weight: 600; }
+.history-time    { font-size: 12px; color: #666; margin-top: 2px; }
 .history-empty { text-align: center; color: #444; padding: 40px 16px; font-size: 15px; }
 .close-btn { position: absolute; top: max(12px, env(safe-area-inset-top)); right: 12px; background: #333; border: none; border-radius: 50%; width: 34px; height: 34px; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.settings-panel { position: fixed; bottom: -100%; left: 0; right: 0; background: #1a1a1a; border-radius: 20px 20px 0 0; z-index: 50; transition: bottom .3s ease; padding: 20px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+.settings-panel { position: fixed; bottom: -100%; left: 0; right: 0; background: #1a1a1a; border-radius: 20px 20px 0 0; z-index: 50; transition: bottom .3s ease; padding: 20px 20px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 .settings-panel.open { bottom: 0; }
 .settings-panel h2 { font-size: 17px; margin-bottom: 18px; text-align: center; }
 .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #333; }
@@ -53,11 +61,10 @@ body { background: #000; color: #fff; font-family: -apple-system, "Noto Sans TC"
 .close-settings { width: 100%; margin-top: 18px; padding: 14px; background: #333; border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
 .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 40; display: none; }
 .backdrop.show { display: block; }
-.manual-btn { position: fixed; bottom: max(28px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); z-index: 45; background: rgba(60,60,60,.92); border: 1px solid rgba(255,255,255,.3); border-radius: 24px; color: #fff; font-size: 15px; font-weight: 600; padding: 12px 28px; cursor: pointer; white-space: nowrap; }
-.cam-error { position: fixed; inset: 0; z-index: 30; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 32px; text-align: center; background: #111; }
-.cam-error .icon { font-size: 64px; }
-.cam-error p { font-size: 16px; color: #bbb; line-height: 1.6; }
-.cam-error .btn-retry { padding: 13px 32px; background: #4caf50; border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
+.manual-btn { position: fixed; bottom: max(28px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); z-index: 40; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: 20px; color: #fff; font-size: 13px; padding: 8px 18px; cursor: pointer; pointer-events: all; backdrop-filter: blur(8px); }
+.cam-error { position: fixed; inset: 0; z-index: 30; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center; background: #000; }
+.cam-error .icon { font-size: 56px; } .cam-error p { font-size: 16px; color: #bbb; line-height: 1.5; }
+.cam-error button { margin-top: 12px; padding: 12px 28px; background: #4caf50; border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; }
 .manual-modal { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.75); display: none; align-items: flex-end; justify-content: center; }
 .manual-modal.open { display: flex; }
 .manual-modal-box { background: #1a1a1a; border-radius: 20px 20px 0 0; padding: 24px 20px; padding-bottom: max(28px, env(safe-area-inset-bottom)); width: 100%; }
@@ -70,9 +77,7 @@ body { background: #000; color: #fff; font-family: -apple-system, "Noto Sans TC"
 </style>
 </head>
 <body>
-
 <video id="video" autoplay playsinline muted></video>
-
 <div class="header">
   <h1>🏪 7-11 效期掃描</h1>
   <div class="btns">
@@ -80,31 +85,25 @@ body { background: #000; color: #fff; font-family: -apple-system, "Noto Sans TC"
     <button class="icon-btn" onclick="openHistory()">📋</button>
   </div>
 </div>
-
 <div class="overlay">
   <div class="scan-frame">
-    <div class="corner-bl"></div>
-    <div class="corner-br"></div>
+    <div class="corner-bl"></div><div class="corner-br"></div>
     <div class="scan-line"></div>
   </div>
   <div class="scan-hint">將條碼對準框內</div>
 </div>
-
 <button class="manual-btn" onclick="manualEntry()">✏️ 手動輸入條碼</button>
-
 <div class="status-banner invalid" id="status-banner">
   <div class="status-icon" id="status-icon">📦</div>
   <div class="status-text" id="status-text">等待掃描</div>
   <div class="status-sub" id="status-sub">將條碼對準上方框框</div>
   <div class="barcode-raw" id="barcode-raw"></div>
 </div>
-
 <div class="history-panel" id="history-panel">
   <h2>掃描紀錄</h2>
   <button class="close-btn" onclick="closeHistory()">✕</button>
   <div class="history-list" id="history-list"></div>
 </div>
-
 <div class="settings-panel" id="settings-panel">
   <h2>設定</h2>
   <div class="setting-row">
@@ -120,178 +119,160 @@ body { background: #000; color: #fff; font-family: -apple-system, "Noto Sans TC"
     <button class="toggle on" id="toggle-vibrate" onclick="toggleVibrate()"></button>
   </div>
   <div class="setting-row" style="border:none">
-    <div><div class="setting-label">條碼格式說明</div><div class="setting-sub">僅2開頭條碼有效。第9-12碼格式：DDDT<br>DDD=年內天數，T=時段碼（1=24:00, 3=03:00, 6=17:00）</div></div>
+    <div><div class="setting-label">說明：末五碼格式</div><div class="setting-sub">僅2開頭條碼有效。第9-12碼格式：DDDT<br>DDD=年內天數，T=時段碼（1=24:00, 3=03:00, 6=17:00）</div></div>
   </div>
   <button class="close-settings" onclick="closeSettings()">關閉</button>
 </div>
-
 <div class="backdrop" id="backdrop" onclick="closeAll()"></div>
-
 <div class="manual-modal" id="manual-modal">
   <div class="manual-modal-box">
     <h3>✏️ 手動輸入條碼</h3>
-    <input class="manual-input" id="manual-input" type="text" inputmode="numeric"
-      maxlength="13" placeholder="輸入 13 位條碼"
-      onkeydown="if(event.key==='Enter') confirmManual()">
+    <input class="manual-input" id="manual-input" type="text" inputmode="numeric" maxlength="13" placeholder="輸入 13 位條碼" onkeydown="if(event.key==='Enter') confirmManual()">
     <div class="manual-btns">
       <button class="btn-cancel" onclick="closeManual()">取消</button>
       <button class="btn-confirm" onclick="confirmManual()">確認</button>
     </div>
   </div>
 </div>
-
 <div class="cam-error" id="cam-error" style="display:none">
   <div class="icon">📷</div>
-  <p>無法開啟相機<br><br>請允許 Chrome 使用相機，<br>然後點「重試」</p>
-  <button class="btn-retry" onclick="startCamera()">重試</button>
+  <p>無法開啟相機<br>請確認已授予相機使用權限，然後重新整理頁面</p>
+  <button onclick="startCamera()">重試</button>
+  <button onclick="manualEntry()" style="margin-top:0;background:#333;">✏️ 手動輸入條碼</button>
 </div>
-
 <script>
-let earlyMode = false, voiceOn = true, vibrateOn = true;
-let lastBarcode = '', lastScanTime = 0;
-const COOLDOWN = 2500;
-const history = JSON.parse(localStorage.getItem('scan_history') || '[]');
-const video = document.getElementById('video');
-let detector = null;
+let earlyMode=false,voiceOn=true,vibrateOn=true,scanning=true,lastBarcode='',lastScanTime=0;
+const SCAN_COOLDOWN=2500;
+const history=JSON.parse(localStorage.getItem('scan_history')||'[]');
+const video=document.getElementById('video');
+let detector=null,animFrame=null;
 
-async function startCamera() {
-  document.getElementById('cam-error').style.display = 'none';
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
-    });
-    video.srcObject = stream;
-    await video.play();
-    initScanner();
-  } catch(e) {
-    document.getElementById('cam-error').style.display = 'flex';
-  }
+async function startCamera(){
+  document.getElementById('cam-error').style.display='none';
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}}});
+    video.srcObject=stream;await video.play();initScanner();
+  }catch(e){document.getElementById('cam-error').style.display='flex';}
 }
 
-async function initScanner() {
-  if ('BarcodeDetector' in window) {
-    try {
-      detector = new BarcodeDetector({ formats: ['ean_13','ean_8','code_128','code_39'] });
-      scanLoop();
-      return;
-    } catch(e) {}
+async function initScanner(){
+  if('BarcodeDetector' in window){
+    try{detector=new BarcodeDetector({formats:['ean_13','ean_8','code_128','code_39']});scanLoop();return;}catch(e){}
   }
-  showStatus('invalid', '❗', '請使用手動輸入', '此裝置不支援相機掃描', '');
+  showStatus('invalid','❗','相機掃描不支援','請使用「手動輸入條碼」','');
 }
 
-async function scanLoop() {
-  if (video.readyState >= 2) {
-    try {
-      const barcodes = await detector.detect(video);
-      for (const b of barcodes) {
-        const raw = b.rawValue, now = Date.now();
-        if (raw === lastBarcode && now - lastScanTime < COOLDOWN) continue;
-        lastBarcode = raw; lastScanTime = now;
-        processBarcode(raw); break;
-      }
-    } catch(e) {}
-  }
-  requestAnimationFrame(scanLoop);
+async function scanLoop(){
+  if(!scanning||video.readyState<2){animFrame=requestAnimationFrame(scanLoop);return;}
+  try{
+    const barcodes=await detector.detect(video);
+    for(const b of barcodes){
+      const raw=b.rawValue,now=Date.now();
+      if(raw===lastBarcode&&now-lastScanTime<SCAN_COOLDOWN)continue;
+      lastBarcode=raw;lastScanTime=now;processBarcode(raw);break;
+    }
+  }catch(e){}
+  animFrame=requestAnimationFrame(scanLoop);
 }
 
-function parseBarcode(raw) {
-  if (raw.length !== 13) return null;
-  if (raw[0] !== '2') return null; // 只有2開頭才是時控商品
-
-  // 第9-12碼 (1-indexed) = substring(8,12)，格式：DDDT
-  // DDD = 年內第幾天，T = 時段碼（1=24:00, 3=03:00, 6=17:00）
-  const code = raw.substring(8, 12);
-  const dayOfYear = parseInt(code.substring(0, 3), 10);
-  const tc = parseInt(code[3], 10);
-
-  if (![1, 3, 6].includes(tc)) return null;
-  if (dayOfYear < 1 || dayOfYear > 366) return null;
-
-  const now = new Date(), year = now.getFullYear();
-
-  function doyToDate(y, doy) { return new Date(y, 0, doy); }
-  let d = doyToDate(year, dayOfYear);
-  const mm = d.getMonth() + 1, dd = d.getDate();
-
+function parseBarcode(raw){
+  if(raw.length!==13)return null;
+  if(raw[0]!=='2')return null;
+  const code=raw.substring(8,12);
+  const dayOfYear=parseInt(code.substring(0,3),10);
+  const tc=parseInt(code[3],10);
+  if(![1,3,6].includes(tc))return null;
+  if(dayOfYear<1||dayOfYear>366)return null;
+  const now=new Date(),year=now.getFullYear();
+  function doyToDate(y,doy){return new Date(y,0,doy);}
+  let d=doyToDate(year,dayOfYear);
+  const mm=d.getMonth()+1,dd=d.getDate();
   let expiry;
-  if (tc === 1) expiry = new Date(year, mm-1, dd+1, 0, 0, 0); // 24:00 = 隔天00:00
-  else if (tc === 3) expiry = new Date(year, mm-1, dd, 3, 0, 0);
-  else expiry = new Date(year, mm-1, dd, 17, 0, 0); // tc===6
-
-  if (now - expiry > 180 * 86400000) {
-    d = doyToDate(year+1, dayOfYear);
-    const nm = d.getMonth()+1, nd = d.getDate();
-    if (tc === 1) expiry = new Date(year+1, nm-1, nd+1, 0, 0, 0);
-    else if (tc === 3) expiry = new Date(year+1, nm-1, nd, 3, 0, 0);
-    else expiry = new Date(year+1, nm-1, nd, 17, 0, 0);
+  if(tc===1)expiry=new Date(year,mm-1,dd+1,0,0,0);
+  else if(tc===3)expiry=new Date(year,mm-1,dd,3,0,0);
+  else expiry=new Date(year,mm-1,dd,17,0,0);
+  if(now-expiry>180*86400000){
+    d=doyToDate(year+1,dayOfYear);
+    const nm=d.getMonth()+1,nd=d.getDate();
+    if(tc===1)expiry=new Date(year+1,nm-1,nd+1,0,0,0);
+    else if(tc===3)expiry=new Date(year+1,nm-1,nd,3,0,0);
+    else expiry=new Date(year+1,nm-1,nd,17,0,0);
   }
-
-  let clearanceMins = tc === 6 ? 90 : 120;
-  if (earlyMode) clearanceMins += 60;
-  const clearance = new Date(expiry.getTime() - clearanceMins * 60000);
-  return { mm, dd, tc, tcLabel:{1:'24:00',3:'03:00',6:'17:00'}[tc], expiry, clearance };
+  let clearanceMins=tc===6?90:120;
+  if(earlyMode)clearanceMins+=60;
+  const clearance=new Date(expiry.getTime()-clearanceMins*60000);
+  const tcLabel={1:'24:00',3:'03:00',6:'17:00'}[tc];
+  return{mm,dd,tc,tcLabel,expiry,clearance};
 }
 
-function processBarcode(raw) {
-  const p = parseBarcode(raw);
-  if (!p) { feedback('invalid'); showStatus('invalid','📦','非時控商品','此條碼非效期時控格式',raw); addHistory(raw,'invalid','非時控商品'); return; }
-  const now = new Date();
-  let cls, icon, text, sub;
-  if (now >= p.expiry) { cls='expired'; icon='🔴'; text='過期 請下架'; sub=`到期：${p.mm}/${p.dd} ${p.tcLabel}`; }
-  else if (now >= p.clearance) { cls='clearance'; icon='🟠'; text='請貼出清標'; sub=`到期：${p.mm}/${p.dd} ${p.tcLabel}　出清：${fmt(p.clearance)}`; }
-  else { cls='normal'; icon='🟢'; text='正常'; sub=`到期：${p.mm}/${p.dd} ${p.tcLabel}　出清：${fmt(p.clearance)}`; }
-  feedback(cls); showStatus(cls,icon,text,sub,raw); addHistory(raw,cls,text);
+function needsIZhenshi(now,p){
+  if(now>=p.clearance)return true;
+  const todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  let expiryDay=new Date(now.getFullYear(),p.mm-1,p.dd);
+  if(expiryDay<todayStart)expiryDay.setFullYear(now.getFullYear()+1);
+  if(todayStart.getTime()===expiryDay.getTime()){
+    const trigger=new Date(todayStart.getFullYear(),todayStart.getMonth(),todayStart.getDate(),17,0,0);
+    if(now>=trigger)return true;
+  }
+  return false;
 }
 
-function showStatus(cls, icon, text, sub, raw) {
-  document.getElementById('status-banner').className = `status-banner show ${cls}`;
-  document.getElementById('status-icon').textContent = icon;
-  document.getElementById('status-text').textContent = text;
-  document.getElementById('status-sub').textContent = sub;
-  document.getElementById('barcode-raw').textContent = raw ? `條碼：${raw}` : '';
-}
-function fmt(d) { return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
-
-function feedback(s) {
-  if (vibrateOn && navigator.vibrate) navigator.vibrate({normal:[80],clearance:[80,60,80],expired:[2500],invalid:[30]}[s]||[50]);
-  const t = {normal:'正常',clearance:'請貼標',expired:'請下架'}[s];
-  if (voiceOn && t) { const u=new SpeechSynthesisUtterance(t); u.lang='zh-TW'; u.rate=0.9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
+function processBarcode(raw){
+  const parsed=parseBarcode(raw);
+  if(!parsed){feedback('invalid');showStatus('invalid','📦','非時控商品','此條碼非效期時控格式',raw);addHistory(raw,'invalid','非時控商品');return;}
+  const now=new Date();
+  let statusClass,icon,text,sub;
+  if(now>=parsed.expiry){statusClass='expired';icon='🔴';text='過期 請下架';sub=`到期：${parsed.mm}/${parsed.dd} ${parsed.tcLabel}`;}
+  else if(needsIZhenshi(now,parsed)){statusClass='izhenshi';icon='🟡';text='i珍食 要貼貼紙';sub=`到期：${parsed.mm}/${parsed.dd} ${parsed.tcLabel}`;}
+  else{statusClass='normal';icon='🟢';text='正常';sub=`到期：${parsed.mm}/${parsed.dd} ${parsed.tcLabel}　出清：${fmt(parsed.clearance)}`;}
+  feedback(statusClass);showStatus(statusClass,icon,text,sub,raw);addHistory(raw,statusClass,text);
 }
 
-function addHistory(barcode, status, statusText) {
-  const now = new Date();
-  history.unshift({ barcode, status, statusText, time:`${now.getMonth()+1}/${now.getDate()} ${fmt(now)}` });
-  if (history.length > 500) history.pop();
-  localStorage.setItem('scan_history', JSON.stringify(history));
+function showStatus(cls,icon,text,sub,raw){
+  const banner=document.getElementById('status-banner');
+  banner.className=`status-banner show ${cls}`;
+  document.getElementById('status-icon').textContent=icon;
+  document.getElementById('status-text').textContent=text;
+  document.getElementById('status-sub').textContent=sub;
+  document.getElementById('barcode-raw').textContent=raw?`條碼：${raw}`:'';
 }
 
-function renderHistory() {
-  const list = document.getElementById('history-list');
-  if (!history.length) { list.innerHTML='<div class="history-empty">尚無掃描紀錄</div>'; return; }
-  list.innerHTML = history.map(h=>`<div class="history-item"><div class="history-dot dot-${h.status}"></div><div class="history-content"><div class="history-barcode">${h.barcode}</div><div class="history-status">${h.statusText}</div><div class="history-time">${h.time}</div></div></div>`).join('');
+function fmt(date){return String(date.getHours()).padStart(2,'0')+':'+String(date.getMinutes()).padStart(2,'0');}
+
+const voiceTexts={normal:'正常',izhenshi:'要貼貼紙',expired:'請下架',invalid:''};
+const vibPatterns={normal:[80],izhenshi:[80,60,80],expired:[2500],invalid:[30]};
+
+function feedback(status){
+  if(vibrateOn&&'vibrate' in navigator)navigator.vibrate(vibPatterns[status]||[50]);
+  if(voiceOn&&voiceTexts[status]){const u=new SpeechSynthesisUtterance(voiceTexts[status]);u.lang='zh-TW';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u);}
 }
 
-function openHistory() { renderHistory(); document.getElementById('history-panel').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
-function closeHistory() { document.getElementById('history-panel').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
-function openSettings() { document.getElementById('settings-panel').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
-function closeSettings() { document.getElementById('settings-panel').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
-function closeAll() { closeHistory(); closeSettings(); }
-function toggleEarly() { earlyMode=!earlyMode; document.getElementById('toggle-early').classList.toggle('on',earlyMode); }
-function toggleVoice() { voiceOn=!voiceOn; document.getElementById('toggle-voice').classList.toggle('on',voiceOn); }
-function toggleVibrate() { vibrateOn=!vibrateOn; document.getElementById('toggle-vibrate').classList.toggle('on',vibrateOn); }
+function addHistory(barcode,status,statusText){
+  const now=new Date(),time=`${now.getMonth()+1}/${now.getDate()} ${fmt(now)}`;
+  history.unshift({barcode,status,statusText,time});
+  if(history.length>500)history.pop();
+  localStorage.setItem('scan_history',JSON.stringify(history));
+}
 
-function manualEntry() {
-  const input = document.getElementById('manual-input');
-  input.value = '';
-  document.getElementById('manual-modal').classList.add('open');
-  setTimeout(() => input.focus(), 100);
+function renderHistory(){
+  const list=document.getElementById('history-list');
+  if(history.length===0){list.innerHTML='<div class="history-empty">尚無掃描紀錄</div>';return;}
+  list.innerHTML=history.map(h=>`<div class="history-item"><div class="history-dot dot-${h.status}"></div><div class="history-content"><div class="history-barcode">${h.barcode}</div><div class="history-status">${h.statusText}</div><div class="history-time">${h.time}</div></div></div>`).join('');
 }
-function closeManual() { document.getElementById('manual-modal').classList.remove('open'); }
-function confirmManual() {
-  const code = document.getElementById('manual-input').value.trim().replace(/\s/g,'');
-  closeManual();
-  if (code) { lastBarcode=code; lastScanTime=Date.now(); processBarcode(code); }
-}
+
+function openHistory(){renderHistory();document.getElementById('history-panel').classList.add('open');document.getElementById('backdrop').classList.add('show');}
+function closeHistory(){document.getElementById('history-panel').classList.remove('open');document.getElementById('backdrop').classList.remove('show');}
+function openSettings(){document.getElementById('settings-panel').classList.add('open');document.getElementById('backdrop').classList.add('show');}
+function closeSettings(){document.getElementById('settings-panel').classList.remove('open');document.getElementById('backdrop').classList.remove('show');}
+function closeAll(){closeHistory();closeSettings();}
+
+function toggleEarly(){earlyMode=!earlyMode;document.getElementById('toggle-early').classList.toggle('on',earlyMode);}
+function toggleVoice(){voiceOn=!voiceOn;document.getElementById('toggle-voice').classList.toggle('on',voiceOn);}
+function toggleVibrate(){vibrateOn=!vibrateOn;document.getElementById('toggle-vibrate').classList.toggle('on',vibrateOn);}
+
+function manualEntry(){const modal=document.getElementById('manual-modal'),input=document.getElementById('manual-input');input.value='';modal.classList.add('open');setTimeout(()=>input.focus(),100);}
+function closeManual(){document.getElementById('manual-modal').classList.remove('open');}
+function confirmManual(){const code=document.getElementById('manual-input').value.trim().replace(/\s/g,'');closeManual();if(code){lastBarcode=code;lastScanTime=Date.now();processBarcode(code);}}
 
 startCamera();
 </script>
